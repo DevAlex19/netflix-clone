@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Netflix Bold";
+  src: url("../assets/fonts/NetflixSans-Bold.otf");
+}
+
+@font-face {
+  font-family: "Netflix Light";
+  src: url("../assets/fonts/NetflixSans-Light.otf");
+}
+
+@font-face {
+  font-family: "Netflix Regular";
+  src: url("../assets/fonts/NetflixSans-Regular.otf");
+}
+@font-face {
+  font-family: "Netflix Medium";
+  src: url("../assets/fonts/NetflixSans-Medium.otf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

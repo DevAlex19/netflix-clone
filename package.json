@@ -11,7 +11,13 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
+    "@fortawesome/fontawesome-free": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.10.4",
+    "@mui/styles": "^5.10.3",
+    "babel-preset-next": "^1.4.0",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -20,6 +26,7 @@
     "@types/node": "18.7.16",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
+    "babel-plugin-styled-components": "^2.0.7",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
     "typescript": "4.8.2"
