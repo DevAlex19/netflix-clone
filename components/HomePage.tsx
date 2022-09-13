@@ -11,11 +11,17 @@ import {
   Overlay,
   SubButton,
 } from "../styles/homePageStyle";
+import HomePageSection from "./HomePageSection";
+import QuestionsSection from "./QuestionsSection";
 
 function HomePage() {
   const [label, setLabel] = useState(false);
   const theme = useTheme();
   const mid = useMediaQuery(theme.breakpoints.down("mid"));
+  const [input, setInput] = useState({ value: "", error: "" });
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   return (
     <>
       <HeaderSection>
@@ -40,7 +46,7 @@ function HomePage() {
           >
             Vizioneaza oriunde. Anuleaza oricand.
           </Typography>
-          <Typography sx={{ marginTop: "2rem", textAlign: "center" }}>
+          <Typography sx={{ marginTop: "1.8rem", textAlign: "center" }}>
             Esti gata de vizionare? Introdu adresa de e-mail pentru a te abona
             sau pentru a reactiva abonamentul.
           </Typography>
@@ -60,7 +66,9 @@ function HomePage() {
               }}
               onFocus={() => setLabel(true)}
               onBlur={() => {
-                setLabel(false);
+                if (input.value.length <= 0) {
+                  setLabel(false);
+                }
               }}
             >
               <Label
@@ -73,25 +81,54 @@ function HomePage() {
               </Label>
               <Input
                 type="text"
+                value={input.value}
+                onFocus={() => setInput({ ...input, error: "" })}
                 onChange={(e: any) => {
                   if (e.target.value.length > 0) {
                     setLabel(true);
                   } else {
                     setLabel(false);
                   }
+                  setInput({ ...input, value: e.target.value });
                 }}
               />
             </Box>
-            <SubButton>
+            <SubButton
+              onClick={() => {
+                if (input.value.length <= 0) {
+                  setInput({ ...input, error: "E-mailul este obligatoriu." });
+                  return;
+                }
+                if (!emailRegex.test(input.value)) {
+                  setInput({
+                    ...input,
+                    error: "Introdu o adresă de e-mail validă.",
+                  });
+                  return;
+                }
+              }}
+            >
               Incepe{" "}
               <FontAwesomeIcon
                 style={{ fontSize: mid ? "0.8rem" : "1.2rem" }}
                 icon={faChevronRight}
               />
             </SubButton>
+            <Typography
+              sx={{
+                position: "absolute",
+                bottom: "-25px",
+                color: "#ffa00a",
+                fontSize: "1rem",
+              }}
+            >
+              {input.error}
+            </Typography>
           </Box>
         </HeaderContainer>
       </HeaderSection>
+      <HomePageSection />
+      <QuestionsSection />
     </>
   );
 }

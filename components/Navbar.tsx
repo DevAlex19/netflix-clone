@@ -40,8 +40,15 @@ function Navbar() {
   const { pathname } = useRouter();
   const theme = useTheme();
   const showInputIcon = useMediaQuery(theme.breakpoints.up("small"));
+  const homeLogo = useMediaQuery(theme.breakpoints.down("mid"));
   const [position, setPosition] = useState(false);
   const page = "home";
+  const logoSize = {
+    logo: homeLogo ? "scale(1.1)" : "scale(1.8)",
+    logoPadding: homeLogo ? "1.8rem 0 0 0 " : "1.8rem 0 0 4rem",
+    btnPadding: homeLogo ? "1.8rem 0 0 0 " : "1.8rem 2rem 0 0",
+  };
+
   const background = {
     log: position
       ? "#090909"
@@ -81,11 +88,11 @@ function Navbar() {
     >
       <Box
         className={menuSection}
-        sx={{ padding: page === "home" ? "1.8rem 0 0 4rem" : "0 0 0 1.5%" }}
+        sx={{ padding: page === "home" ? logoSize.logoPadding : "0 0 0 1.5%" }}
       >
         <Box
           sx={{
-            transform: page === "home" ? "scale(1.8)" : "scale(1)",
+            transform: page === "home" ? logoSize.logo : "scale(1)",
           }}
           className={logoContainer}
         >
@@ -144,7 +151,7 @@ function Navbar() {
       </Box>
       <Box
         className={settingsSection}
-        sx={{ padding: page === "home" ? "1.8rem 2rem 0 0" : "0 2% 0 0" }}
+        sx={{ padding: page === "home" ? logoSize.btnPadding : "0 2% 0 0" }}
       >
         <Button sx={{ display: "none" }}>Conectare</Button>
         {page !== "home" ? (

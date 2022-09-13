@@ -4,6 +4,7 @@ declare module "@mui/material/styles" {
     medium: true;
     small: true;
     mid: true;
+    s: true;
   }
 }
 
@@ -30,6 +31,7 @@ export const theme = createTheme({
       medium: 1080,
       small: 655,
       mid: 800,
+      s: 550,
     },
   },
 });
