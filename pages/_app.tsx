@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <Navbar />
-        <Box sx={{ height: "1000px" }}></Box>
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>

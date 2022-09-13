@@ -18,15 +18,17 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     maxWidth: "100%",
     height: "68px",
-    // background: "#090909",
-    background: "linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent)",
-    [theme.breakpoints.up("sm")]: {},
+    top: "0",
+    zIndex: "1",
+    transition: "all 0.5s ease-in",
+    [theme.breakpoints.down("medium")]: {
+      height: "42px",
+    },
   },
   menuSection: {
     display: "flex",
     alignItems: "center",
     columnGap: "35px",
-    paddingLeft: "1.5%",
     [theme.breakpoints.down("medium")]: {
       columnGap: "15px",
     },
@@ -35,7 +37,7 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
     width: "110px",
     height: "40px",
     position: "relative",
-
+    overflow: "hidden",
     "& img": {
       width: "100%",
       position: "absolute",
@@ -43,6 +45,24 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
       left: "50%",
       transform: "translate(-50%,-50%)",
       cursor: "pointer",
+    },
+  },
+  customLine: {
+    [theme.breakpoints.down("medium")]: {
+      width: "100%",
+      height: "2px",
+      background: "#e5e5e5",
+      position: "absolute",
+      top: "-3px",
+    },
+  },
+  arrow: {
+    [theme.breakpoints.down("medium")]: {
+      position: "absolute",
+      borderBottom: "9px solid #e5e5e5",
+      borderRight: "9px solid transparent",
+      borderLeft: "9px solid transparent",
+      top: "-11px",
     },
   },
   menu: {
@@ -54,10 +74,30 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
         flexDirection: "column",
         alignItems: "center",
         background: "rgba(11,11,11,0.5)",
-        top: "70px",
-        width: "200px",
+        width: "250px",
         left: "50%",
         transform: "translateX(-50%)",
+        border: "1px solid hsla(0,0%,100%,.15)",
+      },
+      "&:hover .dropdown a": {
+        padding: "0.7rem 0",
+      },
+      "& a": {
+        display: "block",
+        width: "100%",
+        textAlign: "center",
+      },
+      "& a:hover": {
+        background: "rgba(144,144,144,0.1)",
+      },
+
+      "&:hover .dropdownMenu": {
+        width: "70px",
+        height: "100%",
+        position: "absolute",
+        left: "50%",
+        transform: "translateX(-50%)",
+        paddingTop: "1.3rem",
       },
     },
   },
@@ -99,12 +139,12 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
   settingsSection: {
     display: "flex",
     alignItems: "center",
-    paddingRight: "2%",
     columnGap: "30px",
   },
   userAvatar: {
     display: "flex",
     alignItems: "center",
+    position: "relative",
     "& img": {
       width: "32px",
       borderRadius: "5px",
@@ -115,6 +155,35 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
       fontSize: "0.9rem",
       cursor: "pointer",
       color: "white",
+    },
+    "& .userSettingsDropdown": {
+      width: "50px",
+      height: "100%",
+      position: "absolute",
+      left: "50%",
+      top: "20px",
+      transform: "translateX(-50%)",
+      paddingTop: "1.3rem",
+      color: "white",
+      display: "none",
+    },
+    "&:hover .userSettingsDropdown": {
+      display: "block",
+    },
+    "& .userDropdown": {
+      position: "absolute",
+      right: "0",
+      top: "24px",
+      width: "220px",
+      border: "1px solid hsla(0,0%,100%,.15)",
+      background: "rgba(11,11,11,0.5)",
+    },
+    "& p": {
+      fontFamily: "Netflix Light",
+      fontSize: "0.9rem",
+    },
+    "& p:hover": {
+      textDecoration: "underline",
     },
   },
   searchIcon: {
@@ -149,6 +218,9 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
       fontSize: "0.9rem",
     },
     "& fieldset": {
+      display: "none",
+    },
+    [theme.breakpoints.down("small")]: {
       display: "none",
     },
   },

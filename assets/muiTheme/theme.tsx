@@ -2,6 +2,8 @@ import { createTheme } from "@mui/material";
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
     medium: true;
+    small: true;
+    mid: true;
   }
 }
 
@@ -26,6 +28,8 @@ export const theme = createTheme({
       lg: 1200,
       xl: 1536,
       medium: 1080,
+      small: 655,
+      mid: 800,
     },
   },
 });
