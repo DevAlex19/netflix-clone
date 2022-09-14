@@ -1,11 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import { Link } from "../styles/footerStyle";
 
 function Footer() {
+  const { pathname } = useRouter();
   return (
     <Box
       sx={{
-        background: "#000000",
+        background: pathname === "/signup" ? "#f3f3f3" : "#000000",
         padding: "3rem 2rem 2rem",
       }}
     >

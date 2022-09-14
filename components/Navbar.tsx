@@ -41,8 +41,9 @@ function Navbar() {
   const theme = useTheme();
   const showInputIcon = useMediaQuery(theme.breakpoints.up("small"));
   const homeLogo = useMediaQuery(theme.breakpoints.down("mid"));
+  const mediumScreen = useMediaQuery(theme.breakpoints.down("medium"));
   const [position, setPosition] = useState(false);
-  const page = "home";
+
   const logoSize = {
     logo: homeLogo ? "scale(1.1)" : "scale(1.8)",
     logoPadding: homeLogo ? "1.8rem 0 0 0 " : "1.8rem 0 0 4rem",
@@ -54,6 +55,7 @@ function Navbar() {
       ? "#090909"
       : "linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent)",
     home: "transparent",
+    signUp: "white",
   };
   useEffect(() => {
     function handleScroll() {
@@ -81,24 +83,52 @@ function Navbar() {
   return (
     <Container
       sx={{
-        background: background.home,
-        position: page === "home" ? "absolute" : "fixed",
+        background:
+          pathname === "/"
+            ? background.home
+            : pathname === "/signup"
+            ? background.signUp
+            : background.log,
+        position:
+          pathname === "/"
+            ? "absolute"
+            : pathname === "/signup"
+            ? "relative"
+            : "fixed",
+        height:
+          mediumScreen && pathname === "/signup"
+            ? "72px"
+            : mediumScreen
+            ? "42px"
+            : pathname === "/signup"
+            ? "95px"
+            : "68px",
+        paddingBottom: pathname === "/signup" ? "1.6rem" : "0",
+        borderBottom: pathname === "/signup" ? "1px solid #e6e6e6" : "none",
       }}
       className={navbarContainer}
     >
       <Box
         className={menuSection}
-        sx={{ padding: page === "home" ? logoSize.logoPadding : "0 0 0 1.5%" }}
+        sx={{
+          padding:
+            pathname === "/" || pathname === "/signup"
+              ? logoSize.logoPadding
+              : "0 0 0 1.5%",
+        }}
       >
         <Box
           sx={{
-            transform: page === "home" ? logoSize.logo : "scale(1)",
+            transform:
+              pathname === "/" || pathname === "/signup"
+                ? logoSize.logo
+                : "scale(1)",
           }}
           className={logoContainer}
         >
           <img src="images/logo.png" />
         </Box>
-        {page !== "home" ? (
+        {pathname !== "/" && pathname !== "/signup" ? (
           <Box className={menu}>
             <Box className={menuDropdown}>
               <Typography>Rasfoire</Typography>
@@ -151,10 +181,15 @@ function Navbar() {
       </Box>
       <Box
         className={settingsSection}
-        sx={{ padding: page === "home" ? logoSize.btnPadding : "0 2% 0 0" }}
+        sx={{
+          padding:
+            pathname === "/" || pathname === "/signup"
+              ? logoSize.btnPadding
+              : "0 2% 0 0",
+        }}
       >
         <Button sx={{ display: "none" }}>Conectare</Button>
-        {page !== "home" ? (
+        {pathname !== "/" && pathname !== "/signup" ? (
           <Box>
             {showInputIcon ? (
               <FontAwesomeIcon
@@ -182,7 +217,7 @@ function Navbar() {
           </Box>
         ) : null}
 
-        {page !== "home" ? (
+        {pathname !== "/" && pathname !== "/signup" ? (
           <Box className={userAvatar}>
             <img style={{ cursor: "pointer" }} src="images/yellow.jpg" />
             <FontAwesomeIcon style={{ cursor: "pointer" }} icon={faSortDown} />
@@ -279,21 +314,35 @@ function Navbar() {
             </Box>
           </Box>
         ) : null}
-        <Button
-          sx={{
-            textTransform: "none",
-            padding: "0.2rem 1.2rem",
-            fontFamily: "Netflix Light",
-            fontSize: "1rem",
-            background: "red",
-            "&:hover": {
+        {pathname !== "/signup" ? (
+          <Button
+            sx={{
+              textTransform: "none",
+              padding: "0.2rem 1.2rem",
+              fontFamily: "Netflix Light",
+              fontSize: "1rem",
               background: "red",
-            },
-          }}
-          variant="contained"
-        >
-          Conectare
-        </Button>
+              "&:hover": {
+                background: "red",
+              },
+            }}
+            variant="contained"
+          >
+            Conectare
+          </Button>
+        ) : (
+          <button
+            style={{
+              border: "none",
+              background: "none",
+              fontFamily: "Netflix Bold",
+              fontSize: "1.1rem",
+              cursor: "pointer",
+            }}
+          >
+            Conectare
+          </button>
+        )}
       </Box>
     </Container>
   );

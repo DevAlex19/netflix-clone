@@ -17,13 +17,9 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
     maxWidth: "100%",
-    height: "68px",
     top: "0",
     zIndex: "1",
-    transition: "all 0.5s ease-in",
-    [theme.breakpoints.down("medium")]: {
-      height: "42px",
-    },
+    // transition: "all 0.5s ease-in",
   },
   menuSection: {
     display: "flex",
