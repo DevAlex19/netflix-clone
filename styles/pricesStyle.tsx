@@ -8,8 +8,12 @@ export const Table = styled("table")({
 export const TableRow = styled("tr")({
   borderBottom: "1px solid #e6e6e6",
   width: "100%",
+
   "&:last-child": {
     borderBottom: "none",
+  },
+  "@media (max-width:600px)": {
+    display: "flex",
   },
 });
 
@@ -20,4 +24,7 @@ export const TableData = styled("td")({
   fontWeight: "bold",
   color: "#737373",
   textAlign: "center",
+  "@media (max-width:600px)": {
+    width: "33.33%",
+  },
 });

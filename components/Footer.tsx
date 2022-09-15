@@ -7,7 +7,12 @@ function Footer() {
   return (
     <Box
       sx={{
-        background: pathname === "/signup" ? "#f3f3f3" : "#000000",
+        background:
+          pathname === "/signup"
+            ? "#f3f3f3"
+            : pathname === "/signin"
+            ? "rgba(0,0,0,.75)"
+            : "#000000",
         padding: "3rem 2rem 2rem",
       }}
     >

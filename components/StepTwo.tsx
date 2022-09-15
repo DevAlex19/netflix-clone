@@ -1,15 +1,33 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
-function StepTwo() {
+function StepTwo({ setPage }: any) {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       sx={{
         maxWidth: "320px",
-        textAlign: "center",
+        textAlign: smallScreen ? "left" : "center",
         margin: "0 auto",
         padding: "8rem 0",
+        animation: "appear 0.5s",
+        "@keyframes appear": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       }}
     >
       <img style={{ width: "50px" }} src="/images/Checkmark.png" alt="" />
@@ -103,6 +121,7 @@ function StepTwo() {
           marginTop: "2.5rem",
           padding: "0.6rem 0",
         }}
+        onClick={() => setPage(3)}
       >
         Inainte
       </Button>

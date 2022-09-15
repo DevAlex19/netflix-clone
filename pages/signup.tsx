@@ -6,18 +6,18 @@ import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
 
 function SignUp() {
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(0);
 
   function changePage() {
     switch (page) {
       case 0:
         return <StepOne setPage={setPage} />;
       case 1:
-        return <CreateAcount />;
-      case 2:
-        return <StepTwo />;
-      case 3:
-        return <FinalStep />;
+        return <CreateAcount setPage={setPage} />;
+      // case 2:
+      //   return <StepTwo setPage={setPage} />;
+      // case 3:
+      //   return <FinalStep setPage={setPage} />;
     }
   }
   return (

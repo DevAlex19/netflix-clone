@@ -2,7 +2,10 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { db } from "../assets/firebase/firebaseConfig";
 import {
   HeaderContainer,
   HeaderSection,
@@ -21,6 +24,7 @@ function HomePage() {
   const [input, setInput] = useState({ value: "", error: "" });
   const emailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const router = useRouter();
 
   return (
     <>
@@ -94,7 +98,7 @@ function HomePage() {
               />
             </Box>
             <SubButton
-              onClick={() => {
+              onClick={async () => {
                 if (input.value.length <= 0) {
                   setInput({ ...input, error: "E-mailul este obligatoriu." });
                   return;
@@ -105,6 +109,16 @@ function HomePage() {
                     error: "Introdu o adresă de e-mail validă.",
                   });
                   return;
+                }
+                const q = query(
+                  collection(db, "users"),
+                  where("email", "==", input.value)
+                );
+                const res = await getDocs(q);
+                if (res.docs[0]?.data().email === input.value) {
+                  router.push("/signin");
+                } else {
+                  router.push("/signup");
                 }
               }}
             >

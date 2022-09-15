@@ -84,7 +84,7 @@ function Navbar() {
     <Container
       sx={{
         background:
-          pathname === "/"
+          pathname === "/" || pathname === "/signin"
             ? background.home
             : pathname === "/signup"
             ? background.signUp
@@ -92,7 +92,7 @@ function Navbar() {
         position:
           pathname === "/"
             ? "absolute"
-            : pathname === "/signup"
+            : pathname === "/signup" || pathname === "/signin"
             ? "relative"
             : "fixed",
         height:
@@ -112,7 +112,7 @@ function Navbar() {
         className={menuSection}
         sx={{
           padding:
-            pathname === "/" || pathname === "/signup"
+            pathname === "/" || pathname === "/signup" || pathname === "/signin"
               ? logoSize.logoPadding
               : "0 0 0 1.5%",
         }}
@@ -120,7 +120,9 @@ function Navbar() {
         <Box
           sx={{
             transform:
-              pathname === "/" || pathname === "/signup"
+              pathname === "/" ||
+              pathname === "/signup" ||
+              pathname === "/signin"
                 ? logoSize.logo
                 : "scale(1)",
           }}
@@ -128,7 +130,9 @@ function Navbar() {
         >
           <img src="images/logo.png" />
         </Box>
-        {pathname !== "/" && pathname !== "/signup" ? (
+        {pathname !== "/" &&
+        pathname !== "/signup" &&
+        pathname !== "/signin" ? (
           <Box className={menu}>
             <Box className={menuDropdown}>
               <Typography>Rasfoire</Typography>
@@ -189,7 +193,9 @@ function Navbar() {
         }}
       >
         <Button sx={{ display: "none" }}>Conectare</Button>
-        {pathname !== "/" && pathname !== "/signup" ? (
+        {pathname !== "/" &&
+        pathname !== "/signup" &&
+        pathname !== "/signin" ? (
           <Box>
             {showInputIcon ? (
               <FontAwesomeIcon
@@ -217,7 +223,9 @@ function Navbar() {
           </Box>
         ) : null}
 
-        {pathname !== "/" && pathname !== "/signup" ? (
+        {pathname !== "/" &&
+        pathname !== "/signup" &&
+        pathname !== "/signin" ? (
           <Box className={userAvatar}>
             <img style={{ cursor: "pointer" }} src="images/yellow.jpg" />
             <FontAwesomeIcon style={{ cursor: "pointer" }} icon={faSortDown} />
@@ -314,7 +322,19 @@ function Navbar() {
             </Box>
           </Box>
         ) : null}
-        {pathname !== "/signup" ? (
+        {pathname === "/signup" ? (
+          <button
+            style={{
+              border: "none",
+              background: "none",
+              fontFamily: "Netflix Bold",
+              fontSize: "1.1rem",
+              cursor: "pointer",
+            }}
+          >
+            Conectare
+          </button>
+        ) : pathname !== "/signin" && pathname !== "/browse" ? (
           <Button
             sx={{
               textTransform: "none",
@@ -330,19 +350,7 @@ function Navbar() {
           >
             Conectare
           </Button>
-        ) : (
-          <button
-            style={{
-              border: "none",
-              background: "none",
-              fontFamily: "Netflix Bold",
-              fontSize: "1.1rem",
-              cursor: "pointer",
-            }}
-          >
-            Conectare
-          </button>
-        )}
+        ) : null}
       </Box>
     </Container>
   );

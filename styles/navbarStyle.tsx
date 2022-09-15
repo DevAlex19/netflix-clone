@@ -19,12 +19,12 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
     maxWidth: "100%",
     top: "0",
     zIndex: "1",
-    // transition: "all 0.5s ease-in",
+    transition: "background 0.3s ease-in",
   },
   menuSection: {
     display: "flex",
     alignItems: "center",
-    columnGap: "35px",
+    // columnGap: "35px",
     [theme.breakpoints.down("medium")]: {
       columnGap: "15px",
     },

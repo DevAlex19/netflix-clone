@@ -1,9 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { auth, db } from "../assets/firebase/firebaseConfig";
 import { Input, Label } from "../styles/createAccountStyle";
 
-function CreateAcount() {
+function CreateAcount({ setPage }: any) {
   const {
     register,
     handleSubmit,
@@ -12,23 +15,45 @@ function CreateAcount() {
   } = useForm();
   const [label, setLabel] = useState({ email: false, password: false });
 
+  async function onSubmit({ email, password }: any) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await addDoc(collection(db, "users"), {
+        email,
+        password,
+      });
+      localStorage.setItem("auth", res.id);
+    } catch (err) {}
+    setPage(0);
+  }
+
   return (
     <Box
       sx={{
-        maxWidth: "420px",
+        maxWidth: "480px",
         margin: "0 auto",
-        padding: "1rem 0 10rem",
+        padding: "1rem 1.5rem 10rem",
+        animation: "appear 0.5s",
+        "@keyframes appear": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       }}
     >
-      <Typography sx={{ color: "#333", fontSize: "0.8rem", marginTop: "2rem" }}>
+      {/* <Typography sx={{ color: "#333", fontSize: "0.8rem", marginTop: "2rem" }}>
         PASUL 1 DIN 3
-      </Typography>
+      </Typography> */}
       <Typography
         sx={{
           color: "#333",
           fontSize: "2rem",
           fontWeight: "bold",
           lineHeight: "2.4rem",
+          marginTop: "3rem",
         }}
       >
         Creează o parolă pentru a activa abonamentul.
@@ -55,11 +80,7 @@ function CreateAcount() {
       >
         Nici nouă nu ne plac formularele.
       </Typography>
-      <form
-        onSubmit={handleSubmit(() => {
-          console.log(errors);
-        })}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box
           sx={{
             margin: errors.email ? "1.5rem 0 1.7rem" : "1.5rem 0 0.7rem",

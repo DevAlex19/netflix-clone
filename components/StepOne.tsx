@@ -1,25 +1,43 @@
-import { Box, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 function StepOne({ setPage }: any) {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box
       sx={{
-        maxWidth: "320px",
-        textAlign: "center",
+        maxWidth: "380px",
+        textAlign: smallScreen ? "left" : "center",
         margin: "0 auto",
-        padding: "8rem 0",
+        padding: "8rem 1.5rem",
+        animation: "appear 0.5s",
+        "@keyframes appear": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       }}
     >
       <img style={{ width: "250px" }} src="/images/devices.png" alt="" />
-      <Typography sx={{ color: "#333", fontSize: "0.8rem", marginTop: "2rem" }}>
+      {/* <Typography sx={{ color: "#333", fontSize: "0.8rem", marginTop: "2rem" }}>
         PASUL 1 din 3
-      </Typography>
+      </Typography> */}
       <Typography
         sx={{
           color: "#333",
           fontSize: "2rem",
           fontWeight: "bold",
           lineHeight: "2.4rem",
+          marginTop: "3rem",
         }}
       >
         Finalizeaza configurarea contului.

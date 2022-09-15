@@ -3,13 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Button, Typography } from "@mui/material";
 import Prices from "./Prices";
 
-function FinalStep() {
+function FinalStep({ setPage }: any) {
   return (
     <Box
       sx={{
-        maxWidth: "960px",
+        maxWidth: "1000px",
         margin: "0 auto",
-        padding: "2rem 0 9rem",
+        padding: "2rem 1.5rem 9rem",
+        animation: "appear 0.5s",
+        "@keyframes appear": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       }}
     >
       <Typography sx={{ color: "#333", fontSize: "0.8rem" }}>
@@ -113,6 +122,7 @@ function FinalStep() {
           margin: "auto",
           marginTop: "2.5rem",
         }}
+        onClick={() => setPage(0)}
       >
         Inainte
       </Button>

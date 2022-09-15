@@ -1,4 +1,4 @@
-import {  CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../styles/index.css";
 import store from "../assets/store/store";
+import { app } from "../assets/firebase/firebaseConfig";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

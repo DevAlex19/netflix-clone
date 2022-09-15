@@ -1,6 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { Table, TableRow, TableData } from "../styles/pricesStyle";
 
@@ -10,6 +10,10 @@ function Prices() {
     standard: false,
     premium: false,
   });
+  const theme = useTheme();
+  const mediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box sx={{ marginTop: "2rem" }}>
       <Box
@@ -18,8 +22,9 @@ function Prices() {
         <Box
           sx={{
             display: "flex",
-            width: "60%",
+            width: smallScreen ? "100%" : "60%",
             justifyContent: "space-around",
+            columnGap: smallScreen ? "10px" : "0",
           }}
         >
           <Box
@@ -30,8 +35,10 @@ function Prices() {
               color: "white",
               padding: "2.5rem 2rem",
               borderRadius: "2px",
-              width: "20%",
-              minWidth: "110px",
+              width: smallScreen ? "33%" : "20%",
+              minWidth: mediumScreen ? "90px" : "110px",
+              height: mediumScreen ? "90px" : "auto",
+              alignSelf: "end",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -62,12 +69,14 @@ function Prices() {
               color: "white",
               padding: "2.5rem 2rem",
               borderRadius: "2px",
-              width: "20%",
-              minWidth: "110px",
+              width: smallScreen ? "33%" : "20%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
+              minWidth: mediumScreen ? "90px" : "110px",
+              height: mediumScreen ? "90px" : "auto",
+              alignSelf: "end",
               "&:before": {
                 content: "''",
                 borderTop: "10px solid rgba(229,0,20,1)",
@@ -94,12 +103,14 @@ function Prices() {
               color: "white",
               padding: "2.5rem 2rem",
               borderRadius: "2px",
-              width: "20%",
-              minWidth: "110px",
+              width: smallScreen ? "33%" : "20%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
+              minWidth: mediumScreen ? "90px" : "110px",
+              height: mediumScreen ? "90px" : "auto",
+              alignSelf: "end",
               "&:before": {
                 content: "''",
                 borderTop: "10px solid rgba(229,0,20,1)",
@@ -128,6 +139,7 @@ function Prices() {
               width: "40%",
               textAlign: "left",
               fontWeight: "normal",
+              display: smallScreen ? "none" : "table-cell",
             }}
             className="active"
           >
@@ -144,7 +156,9 @@ function Prices() {
             9,99 EUR
           </TableData>
           <TableData
-            style={{ color: active.premium ? "rgba(229,0,20,1)" : "#737373" }}
+            style={{
+              color: active.premium ? "rgba(229,0,20,1)" : "#737373",
+            }}
           >
             11,99 EUR
           </TableData>
@@ -156,6 +170,7 @@ function Prices() {
               width: "40%",
               textAlign: "left",
               fontWeight: "normal",
+              display: smallScreen ? "none" : "table-cell",
             }}
           >
             Calitate video
@@ -183,6 +198,7 @@ function Prices() {
               width: "40%",
               textAlign: "left",
               fontWeight: "normal",
+              display: smallScreen ? "none" : "table-cell",
             }}
           >
             Rezolutie
@@ -203,13 +219,18 @@ function Prices() {
             4k + HDR
           </TableData>
         </TableRow>
-        <TableRow>
+        <TableRow style={{ position: "relative" }}>
           <TableData
             style={{
               color: "#333",
-              width: "40%",
+              width: smallScreen ? "100%" : "40%",
               fontWeight: "normal",
-              textAlign: "left",
+              textAlign: smallScreen ? "center" : "left",
+              position: smallScreen ? "absolute" : "relative",
+              display: smallScreen ? "flex" : "table-cell",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: smallScreen ? "0.8rem" : "1rem",
             }}
           >
             Vizionează pe televizor, computer, telefon mobil și tabletă
@@ -219,6 +240,7 @@ function Prices() {
               style={{
                 fontSize: "1.5rem",
                 color: active.minim ? "rgba(229,0,20,1)" : "#737373",
+                marginTop: "1.8rem",
               }}
               icon={faCheck}
             />
@@ -227,6 +249,7 @@ function Prices() {
             <FontAwesomeIcon
               style={{
                 fontSize: "1.5rem",
+                marginTop: "1.8rem",
                 color: active.standard ? "rgba(229,0,20,1)" : "#737373",
               }}
               icon={faCheck}
@@ -236,6 +259,7 @@ function Prices() {
             <FontAwesomeIcon
               style={{
                 fontSize: "1.5rem",
+                marginTop: "1.8rem",
                 color: active.premium ? "rgba(229,0,20,1)" : "#737373",
               }}
               icon={faCheck}
