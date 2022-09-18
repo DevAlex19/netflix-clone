@@ -82,6 +82,7 @@ function Navbar() {
 
   return (
     <Container
+      style={{ zIndex: "2" }}
       sx={{
         background:
           pathname === "/" || pathname === "/signin"

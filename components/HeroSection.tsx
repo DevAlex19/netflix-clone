@@ -5,10 +5,13 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 
 function HeroSection() {
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("s"));
+
   return (
     <Box
       sx={{
@@ -24,6 +27,8 @@ function HeroSection() {
         justifyContent: "center",
         alignItems: "start",
         paddingLeft: "4rem",
+        paddingBottom: "6rem",
+        zIndex: "0",
       }}
     >
       <img
@@ -106,7 +111,7 @@ function HeroSection() {
         </Box>
         <Box
           sx={{
-            display: "flex",
+            display: smallScreen ? "none" : "flex",
             alignItems: "center",
             justifyContent: "center",
             columnGap: "18px",
@@ -133,8 +138,7 @@ function HeroSection() {
       <Box
         sx={{
           position: "relative",
-          zIndex: "1",
-          display: "flex",
+          display: "none",
           margin: "3.5rem auto 0",
         }}
       >
@@ -147,7 +151,7 @@ function HeroSection() {
             // rowGap: "1.2rem",
             borderRight: "1px solid rgba(255, 255, 255, 0.6)",
             // paddingRight: "7rem",
-            width: "clamp(160px,20vw,350px)",
+            width: "clamp(120px,20vw,350px)",
             height: "clamp(55px,5vw,80px)",
           }}
         >

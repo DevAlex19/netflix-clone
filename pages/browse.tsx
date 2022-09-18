@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import HeroSection from "../components/HeroSection";
 import Slider from "../components/Slider";
 
@@ -24,15 +25,10 @@ const images = [
 
 function Browse() {
   return (
-    <>
+    <Box style={{ overflow: "hidden" }}>
       <HeroSection />
       <Slider />
-      <div>
-        {images.map((item: string, index: number) => {
-          return <img style={{ width: "70px" }} key={index} src={item} />;
-        })}
-      </div>
-    </>
+    </Box>
   );
 }
 
