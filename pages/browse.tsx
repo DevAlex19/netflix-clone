@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
+import { useState } from "react";
 import HeroSection from "../components/HeroSection";
+import MovieModal from "../components/MovieModal";
 import Slider from "../components/Slider";
 
 const images = [
@@ -24,10 +26,12 @@ const images = [
 ];
 
 function Browse() {
+  const [modal, setModal] = useState(false);
   return (
     <Box style={{ overflow: "hidden" }}>
       <HeroSection />
-      <Slider />
+      <Slider setModal={setModal} />
+      <MovieModal setModal={setModal} modal={modal} />
     </Box>
   );
 }

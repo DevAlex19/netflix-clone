@@ -97,6 +97,9 @@ function HeroSection() {
             height: "clamp(45px,20vw,55px)",
             borderRadius: "5px",
             cursor: "pointer",
+            "&:hover": {
+              background: "rgba(255,255,255,0.8)",
+            },
           }}
         >
           <FontAwesomeIcon
@@ -122,6 +125,9 @@ function HeroSection() {
             borderRadius: "5px",
             color: "white",
             cursor: "pointer",
+            "&:hover": {
+              background: "rgba(109, 109, 110, 0.5)",
+            },
           }}
         >
           <FontAwesomeIcon
