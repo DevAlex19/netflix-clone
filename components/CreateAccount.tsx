@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { auth, db } from "../assets/firebase/firebaseConfig";
@@ -14,6 +15,7 @@ function CreateAcount({ setPage }: any) {
     watch,
   } = useForm();
   const [label, setLabel] = useState({ email: false, password: false });
+  const router = useRouter();
 
   async function onSubmit({ email, password }: any) {
     try {
@@ -23,6 +25,7 @@ function CreateAcount({ setPage }: any) {
         password,
       });
       localStorage.setItem("auth", res.id);
+      router.push("/browse");
     } catch (err) {}
     setPage(0);
   }

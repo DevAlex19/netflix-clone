@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { navbarStyles } from "../styles/navbarStyle";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 function Navbar() {
   const {
@@ -38,6 +38,7 @@ function Navbar() {
   } = navbarStyles();
   const [showInput, setShowInput] = useState(false);
   const { pathname } = useRouter();
+  const router = useRouter();
   const theme = useTheme();
   const showInputIcon = useMediaQuery(theme.breakpoints.up("small"));
   const homeLogo = useMediaQuery(theme.breakpoints.down("mid"));
@@ -332,6 +333,7 @@ function Navbar() {
               fontSize: "1.1rem",
               cursor: "pointer",
             }}
+            onClick={() => router.push("/signin")}
           >
             Conectare
           </button>
@@ -348,6 +350,7 @@ function Navbar() {
               },
             }}
             variant="contained"
+            onClick={() => router.push("/signin")}
           >
             Conectare
           </Button>

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import CreateAcount from "../components/CreateAccount";
 import FinalStep from "../components/FinalStep";
 import StepOne from "../components/StepOne";
@@ -7,6 +8,14 @@ import StepTwo from "../components/StepTwo";
 
 function SignUp() {
   const [page, setPage] = useState(0);
+
+  const router = useRouter();
+  useEffect(() => {
+    const user = localStorage.getItem("auth");
+    if (user) {
+      router.push("/browse");
+    }
+  }, []);
 
   function changePage() {
     switch (page) {

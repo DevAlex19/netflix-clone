@@ -1,7 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { app } from "../assets/firebase/firebaseConfig";
+import { auth, db } from "../assets/firebase/firebaseConfig";
 import { Input, Label } from "../styles/homePageStyle";
 
 function SignInForm() {
@@ -11,10 +14,25 @@ function SignInForm() {
     watch,
     formState: { errors },
     handleSubmit,
+    setError,
+    clearErrors,
   } = useForm();
+  const router = useRouter();
 
-  function onSubmit() {
-    console.log(app);
+  async function onSubmit({ email, password }: any) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      const q = query(collection(db, "users"), where("email", "==", email));
+      const docs = await getDocs(q);
+      if (docs.docs.length > 0) {
+        localStorage.setItem("auth", docs.docs[0].id);
+      }
+      clearErrors();
+      router.push("/browse");
+    } catch (e) {
+      setError("custom", { type: "custom", message: "error" });
+    }
   }
 
   return (
@@ -36,6 +54,31 @@ function SignInForm() {
         Conectare
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {errors.custom ? (
+          <Box
+            sx={{
+              background: "#e87c03",
+              borderRadius: "5px",
+              padding: "0.5rem 1.2rem",
+              marginBottom: "1.5rem",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "0.9rem",
+                fontFamily: "Netflix Light",
+                lineHeight: "1.1rem",
+              }}
+            >
+              Ne pare rău, nu s-a găsit niciun cont cu această adresă de e-mail.
+              Încearcă din nou sau{" "}
+              <a style={{ color: "white" }} href="/signup">
+                creează un cont nou
+              </a>
+              .
+            </Typography>
+          </Box>
+        ) : null}
         <Box
           sx={{
             marginBottom: "1rem",
@@ -189,7 +232,9 @@ function SignInForm() {
         }}
       >
         Ești nou pe Netflix?{" "}
-        <span style={{ color: "white" }}>Înregistrează-te acum</span>
+        <a href="/signup" style={{ color: "white", textDecoration: "none" }}>
+          Înregistrează-te acum
+        </a>
       </Typography>
       <Typography
         sx={{

@@ -8,8 +8,9 @@ import Navbar from "../components/Navbar";
 import "../styles/index.css";
 import store from "../assets/store/store";
 import { app } from "../assets/firebase/firebaseConfig";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <Head>
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <Navbar />
           <CssBaseline />
-          <Component {...pageProps} />
+          <ProtectedRoute router={router}>
+            <Component {...pageProps} />
+          </ProtectedRoute>
           <Footer />
         </ThemeProvider>
       </Provider>
