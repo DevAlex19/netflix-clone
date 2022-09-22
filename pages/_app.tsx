@@ -6,9 +6,8 @@ import { theme } from "../assets/muiTheme/theme";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../styles/index.css";
-import store from "../assets/store/store";
-import { app } from "../assets/firebase/firebaseConfig";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { store } from "../assets/store/store";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (

@@ -4,8 +4,16 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { createUser } from "../assets/actions/actions";
 import { auth, db } from "../assets/firebase/firebaseConfig";
+import { useAppDispatch } from "../assets/store/store";
 import { Input, Label } from "../styles/createAccountStyle";
+
+type FormData = {
+  email?: string;
+  password?: string;
+};
 
 function CreateAcount({ setPage }: any) {
   const {
@@ -16,18 +24,18 @@ function CreateAcount({ setPage }: any) {
   } = useForm();
   const [label, setLabel] = useState({ email: false, password: false });
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  async function onSubmit({ email, password }: any) {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      const res = await addDoc(collection(db, "users"), {
-        email,
-        password,
+  async function onSubmit({ email, password }: FormData) {
+    if (email && password) {
+      dispatch(createUser({ auth, email, password })).then((res) => {
+        if (typeof res.payload === "string") {
+          localStorage.setItem("auth", res.payload);
+          router.push("/browse");
+          setPage(0);
+        }
       });
-      localStorage.setItem("auth", res.id);
-      router.push("/browse");
-    } catch (err) {}
-    setPage(0);
+    }
   }
 
   return (
