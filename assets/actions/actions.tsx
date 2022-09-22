@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { MoviesType } from "../reducers/mainSlice";
 
 type createUserType = {
   email: string;
@@ -42,3 +43,9 @@ export const getUser = createAsyncThunk(
     return docSnap.data();
   }
 );
+
+export const getMovies = createAsyncThunk("data/getMovies", async () => {
+  const res = await getDocs(collection(db, "movies"));
+  const result = res.docs.map((item) => item.data());
+  return result;
+});
