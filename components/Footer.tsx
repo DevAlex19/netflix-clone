@@ -16,6 +16,7 @@ function Footer() {
         padding: "3rem 2rem 2rem",
         zIndex: pathname === "/signup" ? "1" : "0",
         position: pathname === "/signin" ? "relative" : "static",
+        display: pathname === "/profile-edit" ? "none" : "block",
       }}
     >
       <Typography

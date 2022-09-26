@@ -20,6 +20,8 @@ import { useEffect, useRef, useState } from "react";
 import { Router, useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { initialStateType } from "../assets/reducers/mainSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../assets/firebase/firebaseConfig";
 
 function Navbar() {
   const {
@@ -89,7 +91,9 @@ function Navbar() {
       style={{ zIndex: "2" }}
       sx={{
         background:
-          pathname === "/" || pathname === "/signin"
+          pathname === "/" ||
+          pathname === "/signin" ||
+          pathname === "/profile-edit"
             ? background.home
             : pathname === "/signup"
             ? background.signUp
@@ -97,7 +101,9 @@ function Navbar() {
         position:
           pathname === "/"
             ? "absolute"
-            : pathname === "/signup" || pathname === "/signin"
+            : pathname === "/signup" ||
+              pathname === "/signin" ||
+              pathname === "/profile-edit"
             ? "relative"
             : "fixed",
         height:
@@ -133,11 +139,12 @@ function Navbar() {
           }}
           className={logoContainer}
         >
-          <img src="images/logo.png" />
+          <img onClick={() => router.push("/")} src="images/logo.png" />
         </Box>
         {pathname !== "/" &&
         pathname !== "/signup" &&
-        pathname !== "/signin" ? (
+        pathname !== "/signin" &&
+        pathname !== "/profile-edit" ? (
           <Box className={menu}>
             <Box className={menuDropdown}>
               <Typography>Rasfoire</Typography>
@@ -200,7 +207,8 @@ function Navbar() {
         <Button sx={{ display: "none" }}>Conectare</Button>
         {pathname !== "/" &&
         pathname !== "/signup" &&
-        pathname !== "/signin" ? (
+        pathname !== "/signin" &&
+        pathname !== "/profile-edit" ? (
           <Box>
             {showInputIcon ? (
               <FontAwesomeIcon
@@ -233,7 +241,8 @@ function Navbar() {
 
         {pathname !== "/" &&
         pathname !== "/signup" &&
-        pathname !== "/signin" ? (
+        pathname !== "/signin" &&
+        pathname !== "/profile-edit" ? (
           <Box className={userAvatar}>
             <img style={{ cursor: "pointer" }} src="images/yellow.jpg" />
             <FontAwesomeIcon style={{ cursor: "pointer" }} icon={faSortDown} />
@@ -247,11 +256,18 @@ function Navbar() {
                   }}
                 >
                   <img src="images/yellow.jpg" />
-                  <Typography sx={{ cursor: "pointer" }}>
+                  <Link
+                    href="browse"
+                    sx={{
+                      cursor: "pointer",
+                      color: "white",
+                      fontSize: "0.9rem",
+                    }}
+                  >
                     {user.selected.includes("@")
                       ? user.selected.slice(0, 9)
                       : user.selected}
-                  </Typography>
+                  </Link>
                 </Box>
                 <Box
                   sx={{
@@ -326,6 +342,11 @@ function Navbar() {
                     "&:hover": {
                       textDecoration: "underline",
                     },
+                  }}
+                  onClick={() => {
+                    signOut(auth);
+                    localStorage.removeItem("auth");
+                    router.push("/");
                   }}
                 >
                   Deconectare

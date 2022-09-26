@@ -7,10 +7,11 @@ import {
   getDoc,
   getDocs,
   query,
+  setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { MoviesType } from "../reducers/mainSlice";
 
 type createUserType = {
   email: string;
@@ -49,3 +50,15 @@ export const getMovies = createAsyncThunk("data/getMovies", async () => {
   const result = res.docs.map((item) => item.data());
   return result;
 });
+
+export const addProfileName = createAsyncThunk(
+  "data/changeProfile",
+  async (data: any) => {
+    const q = query(collection(db, "users"), where("email", "==", data.user));
+    const res = await getDocs(q);
+    const result = res.docs[0].id;
+    const docRef = doc(db, "users", result);
+    await updateDoc(docRef, { profiles: [...data.profiles] });
+    return data.profiles;
+  }
+);

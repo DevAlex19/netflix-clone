@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Link, Typography } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -72,9 +72,9 @@ function SignInForm() {
             >
               Ne pare rău, nu s-a găsit niciun cont cu această adresă de e-mail.
               Încearcă din nou sau{" "}
-              <a style={{ color: "white" }} href="/signup">
+              <Link style={{ color: "white" }} href="/signup">
                 creează un cont nou
-              </a>
+              </Link>
               .
             </Typography>
           </Box>
@@ -232,9 +232,9 @@ function SignInForm() {
         }}
       >
         Ești nou pe Netflix?{" "}
-        <a href="/signup" style={{ color: "white", textDecoration: "none" }}>
+        <Link href="/signup" style={{ color: "white", textDecoration: "none" }}>
           Înregistrează-te acum
-        </a>
+        </Link>
       </Typography>
       <Typography
         sx={{

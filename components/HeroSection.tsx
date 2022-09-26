@@ -70,9 +70,9 @@ function HeroSection() {
           marginTop: "2rem",
         }}
       >
-        In America de Nord a secolului al 18-lea, braconierii si antreprenorii
-        fara scrupule se lupta sa preia controlul asupra comertului cu blanuri
-        de la compania Hudson's Bay.
+        {
+          "In America de Nord a secolului al 18-lea, braconierii si antreprenorii fara scrupule se lupta sa preia controlul asupra comertului cu blanuri de la compania Hudson's Bay."
+        }
       </Typography>
       <Box
         sx={{
