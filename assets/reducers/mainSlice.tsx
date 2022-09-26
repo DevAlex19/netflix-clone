@@ -4,6 +4,7 @@ import { getMovies, getUser } from "../actions/actions";
 type UserType = {
   name: string;
   profiles: string[];
+  selected: string;
 };
 
 export type MoviesType = {
@@ -19,11 +20,13 @@ export type MoviesType = {
 export type initialStateType = {
   user: UserType;
   movies: MoviesType[];
+  moviesLoading: boolean;
 };
 const initialState: initialStateType = {
   user: {
     name: "",
     profiles: [],
+    selected: "",
   },
   movies: [
     {
@@ -36,6 +39,7 @@ const initialState: initialStateType = {
       type: [],
     },
   ],
+  moviesLoading: false,
 };
 
 export const mainSlice = createSlice({
@@ -49,13 +53,18 @@ export const mainSlice = createSlice({
           ...state.user,
           name: action.payload.email,
           profiles: [...action.payload.profiles],
+          selected: action.payload.email,
         };
       }
+    });
+    builder.addCase(getMovies.pending, (state, action: any) => {
+      state.moviesLoading = true;
     });
     builder.addCase(getMovies.fulfilled, (state, action: any) => {
       if (action.payload) {
         state.movies = [...action.payload];
       }
+      state.moviesLoading = false;
     });
   },
 });

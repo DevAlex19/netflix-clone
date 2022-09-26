@@ -8,8 +8,8 @@ export const ModalContainer = styled(Box)(({ show }: any) => ({
   background: "rgba(0,0,0,0.6)",
   top: "0",
   left: "0",
-  zIndex: "2",
   display: show === "true" ? "flex" : "none",
   justifyContent: "center",
   overflowY: "scroll",
+  zIndex: "5",
 }));

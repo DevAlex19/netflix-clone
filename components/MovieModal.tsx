@@ -2,11 +2,12 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect } from "react";
+import { ModalTypes } from "../pages/browse";
 import { ModalContainer } from "../styles/movieModalStyle";
 
-type ModalType = {
-  modal: boolean;
-  setModal: (modal: boolean) => void;
+export type ModalType = {
+  modal: ModalTypes;
+  setModal: (modal: ModalTypes) => void;
 };
 
 function MovieModal({ setModal, modal }: ModalType) {
@@ -14,7 +15,7 @@ function MovieModal({ setModal, modal }: ModalType) {
   const mediumScreen = useMediaQuery(theme.breakpoints.down("medium"));
 
   useEffect(() => {
-    if (modal) {
+    if (modal.show) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -23,8 +24,8 @@ function MovieModal({ setModal, modal }: ModalType) {
 
   return (
     <ModalContainer
-      show={modal ? "true" : undefined}
-      onClick={() => setModal(false)}
+      show={modal.show ? "true" : undefined}
+      onClick={() => setModal({ ...modal, show: false })}
     >
       <Box
         sx={{
@@ -62,7 +63,7 @@ function MovieModal({ setModal, modal }: ModalType) {
             alignItems: "center",
             borderRadius: "50%",
           }}
-          onClick={() => setModal(false)}
+          onClick={() => setModal({ ...modal, show: false })}
         >
           <FontAwesomeIcon
             style={{ color: "white", fontSize: "1.5rem" }}
@@ -71,7 +72,7 @@ function MovieModal({ setModal, modal }: ModalType) {
         </Box>
         <Box sx={{ height: "550px", position: "relative" }}>
           <img
-            src="/images/poster.webp"
+            src={modal.poster}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <Box
@@ -129,7 +130,7 @@ function MovieModal({ setModal, modal }: ModalType) {
               </Typography>
             </Box>
             <Typography sx={{ marginTop: "1.5rem", fontSize: "1rem" }}>
-              ssssssssssssssssssss
+              {modal.description}
             </Typography>
           </Box>
           {!mediumScreen ? (
@@ -147,7 +148,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                   Distributie:{" "}
                 </Typography>
                 <Typography sx={{ fontSize: "0.9rem" }}>
-                  Andy Samberg,Andre Braugher,Stephanie Beatriz
+                  {modal.actors.map((item: string) => item)}
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", columnGap: "5px" }}>
@@ -162,7 +163,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                   Genuri:{" "}
                 </Typography>
                 <Typography sx={{ fontSize: "0.9rem" }}>
-                  Seriale politiste,Sitcomuri,Comedii TV
+                  {modal.type.map((item: string) => item)}
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", columnGap: "5px" }}>
@@ -196,7 +197,7 @@ function MovieModal({ setModal, modal }: ModalType) {
               }}
             >
               <img
-                src="/images/poster.webp"
+                src={modal.poster}
                 style={{ width: "150px", borderRadius: "5px" }}
               />
               <Box>
@@ -208,7 +209,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                     fontFamily: "Netflix Light",
                   }}
                 >
-                  fdfdfddf
+                  {modal.description}
                 </Typography>
               </Box>
             </Box>
@@ -217,7 +218,7 @@ function MovieModal({ setModal, modal }: ModalType) {
         <Box sx={{ padding: "0 3rem", marginTop: "3rem", color: "white" }}>
           <Box>
             <Typography sx={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
-              Despre sijdisjjis
+              Despre {modal.name}
             </Typography>
           </Box>
           <Box>
@@ -234,7 +235,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                 Creatori:
               </Typography>
               <Typography sx={{ fontSize: "0.9rem" }}>
-                Andy Samberg,Andre Braugher,Stephanie Beatriz
+                {modal.creator}
               </Typography>
             </Box>
             <Box
@@ -250,7 +251,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                 Distributie:
               </Typography>
               <Typography sx={{ fontSize: "0.9rem" }}>
-                Seriale politiste,Sitcomuri,Comedii TV
+                {modal.actors.map((item: string) => item)}
               </Typography>
             </Box>
             <Box
@@ -266,7 +267,7 @@ function MovieModal({ setModal, modal }: ModalType) {
                 Genuri:
               </Typography>
               <Typography sx={{ fontSize: "0.9rem" }}>
-                Seriale politiste,Sitcomuri,Comedii TV
+                {modal.type.map((item: string) => item)}
               </Typography>
             </Box>
             <Box

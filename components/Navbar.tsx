@@ -18,6 +18,8 @@ import {
 import { navbarStyles } from "../styles/navbarStyle";
 import { useEffect, useRef, useState } from "react";
 import { Router, useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { initialStateType } from "../assets/reducers/mainSlice";
 
 function Navbar() {
   const {
@@ -44,6 +46,7 @@ function Navbar() {
   const homeLogo = useMediaQuery(theme.breakpoints.down("mid"));
   const mediumScreen = useMediaQuery(theme.breakpoints.down("medium"));
   const [position, setPosition] = useState(false);
+  const { user } = useSelector((state: initialStateType) => state);
 
   const logoSize = {
     logo: homeLogo ? "scale(1.1)" : "scale(1.8)",
@@ -146,7 +149,7 @@ function Navbar() {
                 <Box className={arrow}></Box>
                 <Link
                   className={pathname === "/" ? active + " " + link : link}
-                  href="/"
+                  href="/browse"
                 >
                   Pagina principala
                 </Link>
@@ -154,13 +157,13 @@ function Navbar() {
                   className={
                     pathname === "/seriale" ? active + " " + link : link
                   }
-                  href=""
+                  href="/seriale"
                 >
                   Seriale
                 </Link>
                 <Link
                   className={pathname === "/filme" ? active + " " + link : link}
-                  href=""
+                  href="/filme"
                 >
                   Filme
                 </Link>
@@ -168,7 +171,7 @@ function Navbar() {
                   className={
                     pathname === "/noi-si-populare" ? active + " " + link : link
                   }
-                  href=""
+                  href="/noi-si-populare"
                 >
                   Noi si populare
                 </Link>
@@ -176,7 +179,7 @@ function Navbar() {
                   className={
                     pathname === "/lista-mea" ? active + " " + link : link
                   }
-                  href=""
+                  href="/lista-mea"
                 >
                   Lista mea
                 </Link>
@@ -211,7 +214,10 @@ function Navbar() {
               />
             ) : null}
             <Box
-              sx={{ display: showInput ? "flex" : "none" }}
+              sx={{
+                display: showInput ? "flex" : "none",
+                background: "#141414",
+              }}
               className={searchContainer}
               data-type="input"
             >
@@ -241,7 +247,11 @@ function Navbar() {
                   }}
                 >
                   <img src="images/yellow.jpg" />
-                  <Typography sx={{ cursor: "pointer" }}>Nume</Typography>
+                  <Typography sx={{ cursor: "pointer" }}>
+                    {user.selected.includes("@")
+                      ? user.selected.slice(0, 9)
+                      : user.selected}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -337,7 +347,7 @@ function Navbar() {
           >
             Conectare
           </button>
-        ) : pathname !== "/signin" && pathname !== "/browse" ? (
+        ) : pathname === "/" ? (
           <Button
             sx={{
               textTransform: "none",

@@ -105,7 +105,7 @@ export const ItemsContainer = styled(Box)(
 export const ItemContainer = styled(Box)(({ active }: any) => ({
   minWidth: "16%",
   maxHeight: active === "true" ? "auto" : "clamp(150px,20vw,165px)",
-  zIndex: active === "true" ? "1000" : "1",
+  zIndex: active === "true" ? "10" : "1",
   position: "relative",
   transform: active === "true" ? "translateY(-50px) scale(1.35)" : "scale(1)",
   borderRadius: "5px",
@@ -132,7 +132,7 @@ export const TitleIcon = styled(FontAwesomeIcon)({
     fontSize: "1.2rem",
     marginLeft: "0.2rem",
     position: "absolute",
-    left: "260px",
+    left: "100%",
     opacity: "0",
     cursor: "pointer",
   },
@@ -147,6 +147,7 @@ export const ItemTitle = styled(Typography)({
   transition: "opacity 0.3s, transform 0.3s",
   transform: "translateX(0px)",
   position: "absolute",
-  left: "245px",
+  left: "92%",
   cursor: "pointer",
+  width: "max-content",
 });

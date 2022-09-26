@@ -69,7 +69,7 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
         position: "absolute",
         flexDirection: "column",
         alignItems: "center",
-        background: "rgba(11,11,11,0.5)",
+        background: "rgba(11,11,11,0.9)",
         width: "250px",
         left: "50%",
         transform: "translateX(-50%)",
@@ -172,7 +172,7 @@ export const navbarStyles: any = makeStyles((theme: Theme) => ({
       top: "24px",
       width: "220px",
       border: "1px solid hsla(0,0%,100%,.15)",
-      background: "rgba(11,11,11,0.5)",
+      background: "rgba(11,11,11,0.9)",
     },
     "& p": {
       fontFamily: "Netflix Light",
