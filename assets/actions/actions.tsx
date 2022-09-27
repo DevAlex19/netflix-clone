@@ -62,3 +62,14 @@ export const addProfileName = createAsyncThunk(
     return data.profiles;
   }
 );
+export const deleteProfileName = createAsyncThunk(
+  "data/deleteProfile",
+  async (data: any) => {
+    const q = query(collection(db, "users"), where("email", "==", data.user));
+    const res = await getDocs(q);
+    const result = res.docs[0].id;
+    const docRef = doc(db, "users", result);
+    await updateDoc(docRef, { profiles: [...data.profiles] });
+    return data.profiles;
+  }
+);

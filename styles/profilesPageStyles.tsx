@@ -80,3 +80,27 @@ export const AddProfileBtn = styled("button")({
     border: "1px solid white",
   },
 });
+
+export const Checkbox = styled(Box)({
+  border: "1px solid #333",
+  width: "40px",
+  height: "40px",
+  background: "none",
+  position: "relative",
+  "& input": {
+    width: "100%",
+    height: "100%",
+    opacity: "0",
+  },
+  "& input:checked ~ svg": {
+    display: "block",
+  },
+  "& svg": {
+    position: "absolute",
+    left: "0",
+    top: "0",
+    fontSize: "2rem",
+    display: "none",
+    pointerEvents: "none",
+  },
+});

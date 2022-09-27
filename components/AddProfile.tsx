@@ -13,6 +13,8 @@ import {
 export type ProfileType = {
   setPage: (page: string) => void;
   page?: string;
+  setSelected?: any;
+  selected?: string;
 };
 
 function AddProfile({ setPage }: ProfileType) {

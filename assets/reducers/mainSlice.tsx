@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProfileName, getMovies, getUser } from "../actions/actions";
+import {
+  addProfileName,
+  getMovies,
+  getUser,
+  deleteProfileName,
+} from "../actions/actions";
 
 type UserType = {
   name: string;
@@ -67,6 +72,9 @@ export const mainSlice = createSlice({
       state.moviesLoading = false;
     });
     builder.addCase(addProfileName.fulfilled, (state, action) => {
+      state.user = { ...state.user, profiles: [...action.payload] };
+    });
+    builder.addCase(deleteProfileName.fulfilled, (state, action) => {
       state.user = { ...state.user, profiles: [...action.payload] };
     });
   },

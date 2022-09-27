@@ -2,20 +2,22 @@ import { faCirclePlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { setHttpAgentOptions } from "next/dist/server/config";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { initialStateType } from "../assets/reducers/mainSlice";
 import {
+  AddProfileBtn,
   IconContainer,
   ProfileAvatar,
   ProfilesButton,
   ProfilesContainer,
 } from "../styles/profilesPageStyles";
-import { ProfileType } from "./AddProfile";
 
-function ProfilesPage({ setPage, setSelected }: ProfileType) {
+function Profile() {
   const { profiles } = useSelector((state: initialStateType) => state.user);
   const router = useRouter();
+
   return (
     <ProfilesContainer>
       <Typography sx={{ fontSize: "3.5rem", marginBottom: "3rem" }}>
@@ -33,8 +35,8 @@ function ProfilesPage({ setPage, setSelected }: ProfileType) {
                 },
               }}
               onClick={() => {
-                setSelected(profile);
-                setPage("edit");
+                // setSelected(profile);
+                // setPage("edit");
               }}
             >
               <ProfileAvatar>
@@ -76,7 +78,9 @@ function ProfilesPage({ setPage, setSelected }: ProfileType) {
                 color: "white",
               },
             }}
-            onClick={() => setPage("add")}
+            onClick={() => {
+              router.push("/profile-edit");
+            }}
           >
             <Box
               sx={{
@@ -130,11 +134,17 @@ function ProfilesPage({ setPage, setSelected }: ProfileType) {
           </Box>
         ) : null}
       </Box>
-      <ProfilesButton onClick={() => router.push("/profiles")}>
-        Gata
-      </ProfilesButton>
+      <AddProfileBtn
+        onClick={() => {
+          router.push("/profile-edit");
+        }}
+        style={{ marginTop: "5rem" }}
+        className="cancel"
+      >
+        Gestionarea profilurilor
+      </AddProfileBtn>
     </ProfilesContainer>
   );
 }
 
-export default ProfilesPage;
+export default Profile;
