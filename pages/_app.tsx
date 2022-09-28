@@ -10,7 +10,6 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import { store } from "../assets/store/store";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  console.log(pageProps);
   return (
     <>
       <Head>
