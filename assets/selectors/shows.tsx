@@ -3,7 +3,15 @@ import { MoviesType } from "../reducers/mainSlice";
 
 export const Shows: any = createSelector(
   [(state) => state],
-  ({ state: { movies }, pathname }) => {
+  ({ state: { movies }, pathname, query }) => {
+    if (pathname.includes("search")) {
+      const result = movies.filter((movie: MoviesType) => {
+        const movieName = movie.name?.replaceAll(" ", "").toLowerCase();
+        return movieName?.includes(query.q?.toLowerCase());
+      });
+
+      return result;
+    }
     if (!pathname.includes("noi-si-populare")) {
       const result = movies.filter((movie: MoviesType) => {
         return pathname.includes("seriale")

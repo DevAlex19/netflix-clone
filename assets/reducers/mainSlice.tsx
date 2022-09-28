@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import {
   addProfileName,
   getMovies,
@@ -10,6 +11,7 @@ type UserType = {
   name: string;
   profiles: string[];
   selected: string;
+  loading: boolean;
 };
 
 export type MoviesType = {
@@ -32,6 +34,7 @@ const initialState: initialStateType = {
     name: "",
     profiles: [],
     selected: "",
+    loading: false,
   },
   movies: [
     {
@@ -50,8 +53,15 @@ const initialState: initialStateType = {
 export const mainSlice = createSlice({
   name: "app",
   initialState,
-  reducers: {},
+  reducers: {
+    selectProfile(state, action) {
+      state.user = { ...state.user, selected: action.payload };
+    },
+  },
   extraReducers: (builder) => {
+    builder.addCase(getUser.pending, (state, action) => {
+      state.user = { ...state.user, loading: true };
+    });
     builder.addCase(getUser.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = {
@@ -61,6 +71,7 @@ export const mainSlice = createSlice({
           selected: action.payload.email,
         };
       }
+      state.user = { ...state.user, loading: false };
     });
     builder.addCase(getMovies.pending, (state, action: any) => {
       state.moviesLoading = true;
@@ -79,5 +90,7 @@ export const mainSlice = createSlice({
     });
   },
 });
+
+export const { selectProfile } = mainSlice.actions;
 
 export default mainSlice.reducer;

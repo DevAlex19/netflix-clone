@@ -41,6 +41,7 @@ function Navbar() {
     arrow,
   } = navbarStyles();
   const [showInput, setShowInput] = useState(false);
+  const [input, setInput] = useState("");
   const { pathname } = useRouter();
   const router = useRouter();
   const theme = useTheme();
@@ -93,7 +94,8 @@ function Navbar() {
         background:
           pathname === "/" ||
           pathname === "/signin" ||
-          pathname === "/profile-edit"
+          pathname === "/profile-edit" ||
+          pathname === "/profiles"
             ? background.home
             : pathname === "/signup"
             ? background.signUp
@@ -103,7 +105,8 @@ function Navbar() {
             ? "absolute"
             : pathname === "/signup" ||
               pathname === "/signin" ||
-              pathname === "/profile-edit"
+              pathname === "/profile-edit" ||
+              pathname === "/profiles"
             ? "relative"
             : "fixed",
         height:
@@ -144,7 +147,8 @@ function Navbar() {
         {pathname !== "/" &&
         pathname !== "/signup" &&
         pathname !== "/signin" &&
-        pathname !== "/profile-edit" ? (
+        pathname !== "/profile-edit" &&
+        pathname !== "/profiles" ? (
           <Box className={menu}>
             <Box className={menuDropdown}>
               <Typography>Rasfoire</Typography>
@@ -208,8 +212,16 @@ function Navbar() {
         {pathname !== "/" &&
         pathname !== "/signup" &&
         pathname !== "/signin" &&
-        pathname !== "/profile-edit" ? (
-          <Box>
+        pathname !== "/profile-edit" &&
+        pathname !== "/profiles" ? (
+          <Box
+            onKeyPress={(e: any) => {
+              if (e.key === "Enter") {
+                router.push(`/search?q=${input}`);
+                setShowInput(false);
+              }
+            }}
+          >
             {showInputIcon ? (
               <FontAwesomeIcon
                 onClick={(e: any) => {
@@ -229,11 +241,20 @@ function Navbar() {
               className={searchContainer}
               data-type="input"
             >
-              <FontAwesomeIcon icon={faSearch} data-type="input" />
+              <FontAwesomeIcon
+                icon={faSearch}
+                data-type="input"
+                onClick={() => {
+                  router.push(`/search?q=${input}`);
+                  setShowInput(false);
+                }}
+              />
               <input
                 type="text"
                 placeholder="Titluri, persoane, genuri"
                 data-type="input"
+                value={input}
+                onChange={(e: any) => setInput(e.target.value)}
               />
             </Box>
           </Box>
@@ -242,7 +263,8 @@ function Navbar() {
         {pathname !== "/" &&
         pathname !== "/signup" &&
         pathname !== "/signin" &&
-        pathname !== "/profile-edit" ? (
+        pathname !== "/profile-edit" &&
+        pathname !== "/profiles" ? (
           <Box className={userAvatar}>
             <img style={{ cursor: "pointer" }} src="images/yellow.jpg" />
             <FontAwesomeIcon style={{ cursor: "pointer" }} icon={faSortDown} />
@@ -277,6 +299,7 @@ function Navbar() {
                   }}
                 ></Box>
                 <Box
+                  onClick={() => router.push("/profiles")}
                   sx={{
                     display: "flex",
                     alignItems: "center",

@@ -7,7 +7,6 @@ export const ShowsContainer = styled(Box)({
   margin: "10rem auto 6rem",
   gap: "80px 10px",
   width: "95%",
-  justifyContent: "space-between",
 });
 
 export const MovieContainer = styled(Box)({
