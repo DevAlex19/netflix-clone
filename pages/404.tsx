@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
-function errorPage() {
+function ErrorPage() {
   const router = useRouter();
 
   return (
@@ -49,4 +49,4 @@ function errorPage() {
   );
 }
 
-export default errorPage;
+export default ErrorPage;
